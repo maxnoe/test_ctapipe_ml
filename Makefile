@@ -5,7 +5,7 @@ all: ${OUTDIR}/gamma-diffuse_eval.dl2.h5 ${OUTDIR}/proton_eval.dl2.h5
 
 
 ${OUTDIR}/%_eval.dl2.h5: data/%_eval.dl2.h5 ${OUTDIR}/energy.pkl ${OUTDIR}/classifier.pkl apply_config.yaml
-	ctapipe-ml-apply \
+	ctapipe-apply-models \
 		-i $< -o $@ \
 		--regressor ${OUTDIR}/energy.pkl \
 		--classifier ${OUTDIR}/classifier.pkl \
@@ -16,7 +16,7 @@ ${OUTDIR}/%_eval.dl2.h5: data/%_eval.dl2.h5 ${OUTDIR}/energy.pkl ${OUTDIR}/class
 
 
 ${OUTDIR}/energy.pkl: data/gamma-diffuse_train_en.dl2.h5  ml_config.yaml | ${OUTDIR}
-	ctapipe-ml-train-regressor \
+	ctapipe-train-regressor \
 		-i $< -o $@ \
 		-c ml_config.yaml \
 		--provenance-log=$@.provlog \
@@ -24,7 +24,7 @@ ${OUTDIR}/energy.pkl: data/gamma-diffuse_train_en.dl2.h5  ml_config.yaml | ${OUT
 		--log-level=INFO
 
 ${OUTDIR}/classifier.pkl: ${OUTDIR}/proton_train.dl2.h5 ${OUTDIR}/gamma-diffuse_train_clf.dl2.h5  ml_config.yaml
-	ctapipe-ml-train-classifier \
+	ctapipe-train-classifier \
 		-o $@ \
 		--signal ${OUTDIR}/gamma-diffuse_train_clf.dl2.h5 \
 		--background ${OUTDIR}/proton_train.dl2.h5 \
@@ -34,7 +34,7 @@ ${OUTDIR}/classifier.pkl: ${OUTDIR}/proton_train.dl2.h5 ${OUTDIR}/gamma-diffuse_
 		--log-level=INFO
 
 ${OUTDIR}/gamma-diffuse_train_clf.dl2.h5: data/gamma-diffuse_train_clf.dl2.h5 ${OUTDIR}/energy.pkl
-	ctapipe-ml-apply \
+	ctapipe-apply-models \
 		-i $< -o $@ \
 		--regressor ${OUTDIR}/energy.pkl \
 		-c apply_config.yaml \
@@ -43,7 +43,7 @@ ${OUTDIR}/gamma-diffuse_train_clf.dl2.h5: data/gamma-diffuse_train_clf.dl2.h5 ${
 		--log-level=INFO
 
 ${OUTDIR}/proton_train.dl2.h5: data/proton_train.dl2.h5 ${OUTDIR}/energy.pkl
-	ctapipe-ml-apply \
+	ctapipe-apply-models \
 		-i $< -o $@ \
 		--regressor ${OUTDIR}/energy.pkl \
 		-c apply_config.yaml \
