@@ -5,9 +5,6 @@
 # Configuration for training machine-learning models
 # ======================================================================
 TrainParticleClassifier:
-  n_signal: 10000
-  n_background: 10000
-
   CrossValidator:
     n_cross_validations: 5
 

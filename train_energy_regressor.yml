@@ -6,8 +6,6 @@
 # ======================================================================
 
 TrainEnergyRegressor:
-  n_events: 10000
-
   CrossValidator:
     n_cross_validations: 5
 
