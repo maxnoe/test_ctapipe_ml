@@ -1,0 +1,46 @@
+# %ECSV 1.0
+# ---
+# datatype:
+# - {name: e_low, unit: TeV, datatype: float64}
+# - {name: e_high, unit: TeV, datatype: float64}
+# - {name: sensitivity, unit: erg / (cm2 s), datatype: float32}
+# meta: !!omap
+# - {description: Prod5b Public Sensitivity exported from root files published on Zenodo}
+# - {instrument: CTA-North Alpha}
+# - {obstime: 50 h}
+# - __serialized_columns__:
+#     e_high:
+#       __class__: astropy.units.quantity.Quantity
+#       unit: &id001 !astropy.units.Unit {unit: TeV}
+#       value: !astropy.table.SerializedColumn {name: e_high}
+#     e_low:
+#       __class__: astropy.units.quantity.Quantity
+#       unit: *id001
+#       value: !astropy.table.SerializedColumn {name: e_low}
+#     sensitivity:
+#       __class__: astropy.units.quantity.Quantity
+#       unit: !astropy.units.Unit {unit: erg / (cm2 s)}
+#       value: !astropy.table.SerializedColumn {name: sensitivity}
+# schema: astropy-2.0
+e_low e_high sensitivity
+0.012589254117941675 0.0199526231496888 0.0
+0.0199526231496888 0.03162277660168379 2.5919945e-11
+0.03162277660168379 0.05011872336272722 8.943394e-12
+0.05011872336272722 0.07943282347242814 2.3207712e-12
+0.07943282347242814 0.12589254117941667 1.0313907e-12
+0.12589254117941667 0.1995262314968879 6.5107885e-13
+0.1995262314968879 0.3162277660168378 4.67188e-13
+0.3162277660168378 0.501187233627272 3.233101e-13
+0.501187233627272 0.7943282347242809 2.5441915e-13
+0.7943282347242809 1.2589254117941662 1.912446e-13
+1.2589254117941662 1.9952623149688768 2.0873613e-13
+1.9952623149688768 3.162277660168376 1.6201049e-13
+3.162277660168376 5.011872336272719 1.4914929e-13
+5.011872336272719 7.943282347242805 2.1551669e-13
+7.943282347242805 12.58925411794165 2.8160091e-13
+12.58925411794165 19.95262314968877 4.0685353e-13
+19.95262314968877 31.62277660168376 6.571001e-13
+31.62277660168376 50.118723362727145 1.1259315e-12
+50.118723362727145 79.43282347242797 1.760408e-12
+79.43282347242797 125.89254117941648 2.9212036e-12
+125.89254117941648 199.52623149688787 5.3159313e-12
