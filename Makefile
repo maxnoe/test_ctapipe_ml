@@ -1,7 +1,19 @@
 OUTDIR=build
 
 
-all: ${OUTDIR}/gamma-diffuse_eval.dl2.h5 ${OUTDIR}/proton_eval.dl2.h5
+all: \
+	${OUTDIR}/gamma-diffuse_eval.dl2.h5 \
+	${OUTDIR}/gamma-diffuse_eval.reduced_dl2.h5 \
+	${OUTDIR}/proton_eval.dl2.h5 \
+	${OUTDIR}/proton_eval.reduced_dl2.h5 \
+	${OUTDIR}/electron_eval.dl2.h5 \
+	${OUTDIR}/electron_eval.reduced_dl2.h5 \
+	${OUTDIR}/gamma_eval.dl2.h5 \
+	${OUTDIR}/gamma_eval.reduced_dl2.h5 \
+
+
+${OUTDIR}/%.reduced_dl2.h5: build/%.dl2.h5 remove_tel_data.py
+	python remove_tel_data.py $< $@
 
 
 ${OUTDIR}/%_eval.dl2.h5: data/%_eval.dl2.h5 ${OUTDIR}/energy.pkl ${OUTDIR}/classifier.pkl apply_config.yml
