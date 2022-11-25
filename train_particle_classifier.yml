@@ -47,6 +47,8 @@ TrainParticleClassifier:
       - intensity_skewness
       - intensity_kurtosis
       - area
+      - RandomForestRegressor_energy     # mean energy of the array event
+      - RandomForestRegressor_tel_energy # mono prediction
 
     QualityQuery:
       quality_criteria:
