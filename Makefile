@@ -19,11 +19,12 @@ ${OUTDIR}/%.reduced_dl2.h5: build/%.dl2.h5 remove_tel_data.py
 ${OUTDIR}/%_eval.dl2.h5: data/%_eval.dl2.h5 ${OUTDIR}/energy.pkl ${OUTDIR}/classifier.pkl apply_config.yml
 	ctapipe-apply-models \
 		-i $< -o $@ \
-		--energy-regressor ${OUTDIR}/energy.pkl \
-		--particle-classifier ${OUTDIR}/classifier.pkl \
+		--reconstructor ${OUTDIR}/energy.pkl \
+		--reconstructor ${OUTDIR}/classifier.pkl \
 		-c apply_config.yml \
+		--overwrite \
 		--provenance-log=$@.provlog \
-		--log-file=build/apply_$*.log \
+		--log-file=${OUTDIR}/apply_$*.log \
 		--log-level=INFO
 
 
@@ -32,7 +33,7 @@ ${OUTDIR}/energy.pkl: data/gamma-diffuse_train_en.dl2.h5  train_energy_regressor
 		-i $< --output=$@ \
 		-c train_energy_regressor.yml \
 		--provenance-log=$@.provlog \
-		--log-file=build/train_energy.log \
+		--log-file=${OUTDIR}/train_energy.log \
 		--log-level=INFO \
 		--overwrite
 
@@ -43,26 +44,28 @@ ${OUTDIR}/classifier.pkl: ${OUTDIR}/proton_train.dl2.h5 ${OUTDIR}/gamma-diffuse_
 		--background ${OUTDIR}/proton_train.dl2.h5 \
 		-c train_particle_classifier.yml \
 		--provenance-log=$@.provlog \
-		--log-file=build/train_classifier.log \
+		--log-file=${OUTDIR}/train_classifier.log \
 		--log-level=INFO \
 		--overwrite
 
 ${OUTDIR}/gamma-diffuse_train_clf.dl2.h5: data/gamma-diffuse_train_clf.dl2.h5 ${OUTDIR}/energy.pkl
 	ctapipe-apply-models \
 		-i $< -o $@ \
-		--energy-regressor ${OUTDIR}/energy.pkl \
+		--reconstructor ${OUTDIR}/energy.pkl \
 		-c apply_config.yml \
+		--overwrite \
 		--provenance-log=$@.provlog \
-		--log-file=build/apply_gamma-diffuse_train_clf.log \
+		--log-file=${OUTDIR}/apply_gamma-diffuse_train_clf.log \
 		--log-level=INFO
 
 ${OUTDIR}/proton_train.dl2.h5: data/proton_train.dl2.h5 ${OUTDIR}/energy.pkl
 	ctapipe-apply-models \
 		-i $< -o $@ \
-		--energy-regressor ${OUTDIR}/energy.pkl \
+		--reconstructor ${OUTDIR}/energy.pkl \
 		-c apply_config.yml \
+		--overwrite \
 		--provenance-log=$@.provlog \
-		--log-file=build/apply_proton_train.log \
+		--log-file=${OUTDIR}/apply_proton_train.log \
 		--log-level=INFO
 
 
