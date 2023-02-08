@@ -1,3 +1,2 @@
-ApplyModels:
-  StereoCombiner:
-    weights: konrad
+StereoCombiner:
+  weights: konrad

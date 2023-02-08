@@ -25,7 +25,9 @@ ${OUTDIR}/%_eval.dl2.h5: data/%_eval.dl2.h5 ${OUTDIR}/energy.pkl ${OUTDIR}/class
 		--overwrite \
 		--provenance-log=$@.provlog \
 		--log-file=${OUTDIR}/apply_$*.log \
-		--log-level=INFO
+		--log-level=INFO \
+		--no-dl1-parameters \
+		--no-true-parameters
 
 
 ${OUTDIR}/energy.pkl: data/gamma-diffuse_train_en.dl2.h5  train_energy_regressor.yml | ${OUTDIR}
