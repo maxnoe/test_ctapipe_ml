@@ -12,8 +12,9 @@ all: \
 	${OUTDIR}/gamma_eval.reduced_dl2.h5 \
 
 
-${OUTDIR}/%.reduced_dl2.h5: build/%.dl2.h5 remove_tel_data.py
-	python remove_tel_data.py $< $@
+${OUTDIR}/%.reduced_dl2.h5: build/%.dl2.h5
+	ctapipe-merge -i $< -o $@ \
+		--no-telescope-events
 
 
 ${OUTDIR}/%_eval.dl2.h5: data/%_eval.dl2.h5 ${OUTDIR}/energy.pkl ${OUTDIR}/classifier.pkl apply_config.yml
@@ -25,9 +26,7 @@ ${OUTDIR}/%_eval.dl2.h5: data/%_eval.dl2.h5 ${OUTDIR}/energy.pkl ${OUTDIR}/class
 		--overwrite \
 		--provenance-log=$@.provlog \
 		--log-file=${OUTDIR}/apply_$*.log \
-		--log-level=INFO \
-		--no-dl1-parameters \
-		--no-true-parameters
+		--log-level=INFO
 
 
 ${OUTDIR}/energy.pkl: data/gamma-diffuse_train_en.dl2.h5  train_energy_regressor.yml | ${OUTDIR}
