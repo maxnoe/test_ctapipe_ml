@@ -50,6 +50,9 @@ TrainEnergyRegressor:
       - intensity_kurtosis
       - area
 
+    StereoMeanCombiner:
+      weights: "konrad"
+
     QualityQuery:
       quality_criteria:
         - ["HillasValid", "HillasReconstructor_is_valid"]

@@ -50,6 +50,9 @@ TrainParticleClassifier:
       - RandomForestRegressor_energy     # mean energy of the array event
       - RandomForestRegressor_tel_energy # mono prediction
 
+    StereoMeanCombiner:
+      weights: "konrad"
+
     QualityQuery:
       quality_criteria:
         - ["HillasValid", "HillasReconstructor_is_valid"]
