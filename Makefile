@@ -12,17 +12,16 @@ all: \
 	${OUTDIR}/gamma_eval.reduced_dl2.h5 \
 
 
-${OUTDIR}/%.reduced_dl2.h5: build/%.dl2.h5
-	ctapipe-merge -i $< -o $@ \
+${OUTDIR}/%.reduced_dl2.h5: ${OUTDIR}/%.dl2.h5
+	ctapipe-merge $< -o $@ \
 		--no-telescope-events
 
 
-${OUTDIR}/%_eval.dl2.h5: data/%_eval.dl2.h5 ${OUTDIR}/energy.pkl ${OUTDIR}/classifier.pkl apply_config.yml
+${OUTDIR}/%_eval.dl2.h5: data/%_eval.dl2.h5 ${OUTDIR}/energy.pkl ${OUTDIR}/classifier.pkl
 	ctapipe-apply-models \
 		-i $< -o $@ \
 		--reconstructor ${OUTDIR}/energy.pkl \
 		--reconstructor ${OUTDIR}/classifier.pkl \
-		-c apply_config.yml \
 		--overwrite \
 		--provenance-log=$@.provlog \
 		--log-file=${OUTDIR}/apply_$*.log \
@@ -53,7 +52,6 @@ ${OUTDIR}/gamma-diffuse_train_clf.dl2.h5: data/gamma-diffuse_train_clf.dl2.h5 ${
 	ctapipe-apply-models \
 		-i $< -o $@ \
 		--reconstructor ${OUTDIR}/energy.pkl \
-		-c apply_config.yml \
 		--overwrite \
 		--provenance-log=$@.provlog \
 		--log-file=${OUTDIR}/apply_gamma-diffuse_train_clf.log \
@@ -63,7 +61,6 @@ ${OUTDIR}/proton_train.dl2.h5: data/proton_train.dl2.h5 ${OUTDIR}/energy.pkl
 	ctapipe-apply-models \
 		-i $< -o $@ \
 		--reconstructor ${OUTDIR}/energy.pkl \
-		-c apply_config.yml \
 		--overwrite \
 		--provenance-log=$@.provlog \
 		--log-file=${OUTDIR}/apply_proton_train.log \
